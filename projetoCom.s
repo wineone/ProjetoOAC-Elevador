@@ -1,7 +1,7 @@
 	.file	"projetoCom.c"
 	.option nopic
 	.text
-	.align	1
+	.align	2
 	.globl	init
 	.type	init, @function
 init:
@@ -13,7 +13,7 @@ init:
 	sw	zero,8(a5)
 	ret
 	.size	init, .-init
-	.align	1
+	.align	2
 	.globl	print
 	.type	print, @function
 print:
@@ -47,7 +47,7 @@ print:
 	call	puts
 	j	.L4
 	.size	print, .-print
-	.align	1
+	.align	2
 	.globl	description
 	.type	description, @function
 description:
@@ -90,32 +90,27 @@ description:
 	addi	sp,sp,16
 	jr	ra
 	.size	description, .-description
-	.align	1
+	.align	2
 	.globl	option
 	.type	option, @function
 option:
 	addi	sp,sp,-16
 	sw	ra,12(sp)
 	sw	s0,8(sp)
-	sw	s1,4(sp)
 	lui	a0,%hi(.LC15)
 	addi	a0,a0,%lo(.LC15)
 	call	printf
-	lui	s1,%hi(stdin)
-	lw	a0,%lo(stdin)(s1)
-	call	getc
+	call	getchar
 	lui	s0,%hi(command)
 	sb	a0,%lo(command)(s0)
-	lw	a0,%lo(stdin)(s1)
-	call	getc
+	call	getchar
 	lbu	a0,%lo(command)(s0)
 	lw	ra,12(sp)
 	lw	s0,8(sp)
-	lw	s1,4(sp)
 	addi	sp,sp,16
 	jr	ra
 	.size	option, .-option
-	.align	1
+	.align	2
 	.globl	solve
 	.type	solve, @function
 solve:
@@ -258,7 +253,7 @@ solve:
 	addi	sp,sp,64
 	jr	ra
 	.size	solve, .-solve
-	.align	1
+	.align	2
 	.globl	main
 	.type	main, @function
 main:
@@ -343,4 +338,3 @@ main:
 .LC23:
 	.string	"\n--------------- COMANDO N\303\203O EXISTE --------------\n"
 	.ident	"GCC: (GNU) 8.3.0"
-	.section	.note.GNU-stack,"",@progbits
